@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Romualdo Barone · Solo Clarinet AI Training Dataset</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Montserrat:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  background: #0A0A0A;
+  color: #F5F0E8;
+  font-family: 'Montserrat', sans-serif;
+  overflow-x: hidden;
+}
+
+/* HERO */
+.hero {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 80px 40px;
+  background: radial-gradient(ellipse at 50% 40%, rgba(201,168,76,0.07) 0%, transparent 65%);
+}
+
+.hero-tag {
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 5px;
+  color: #C9A84C;
+  text-transform: uppercase;
+  margin-bottom: 32px;
+}
+
+.hero-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(56px, 10vw, 120px);
+  font-weight: 300;
+  line-height: 1;
+  color: #F5F0E8;
+  margin-bottom: 24px;
+}
+.hero-title em { color: #C9A84C; font-style: italic; }
+
+.hero-subtitle {
+  font-size: 16px;
+  letter-spacing: 5px;
+  color: #888;
+  text-transform: uppercase;
+  margin-bottom: 40px;
+}
+
+.hero-rule {
+  width: 600px;
+  max-width: 90%;
+  height: 1px;
+  background: linear-gradient(to right, transparent, rgba(201,168,76,0.4), transparent);
+  margin: 20px auto 40px;
+}
+
+.spec-bar {
+  display: flex;
+  gap: 48px;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-bottom: 48px;
+}
+.spec-item { border-left: 1px solid rgba(201,168,76,0.3); padding-left: 16px; text-align: left; }
+.spec-value { font-size: 22px; font-weight: 700; color: #C9A84C; font-family: 'Cormorant Garamond', serif; }
+.spec-label { font-size: 9px; letter-spacing: 2px; color: #888; text-transform: uppercase; margin-top: 2px; }
+
+.waveform { display: flex; align-items: center; gap: 3px; height: 40px; justify-content: center; margin-bottom: 40px; }
+.wave-bar { width: 3px; background: #C9A84C; border-radius: 2px; animation: wave 1.2s ease-in-out infinite; opacity: 0.7; }
+@keyframes wave { 0%, 100% { height: 4px; } 50% { height: 32px; } }
+.wave-bar:nth-child(1){animation-delay:0s}.wave-bar:nth-child(2){animation-delay:0.1s}.wave-bar:nth-child(3){animation-delay:0.2s}
+.wave-bar:nth-child(4){animation-delay:0.3s}.wave-bar:nth-child(5){animation-delay:0.4s}.wave-bar:nth-child(6){animation-delay:0.3s}
+.wave-bar:nth-child(7){animation-delay:0.2s}.wave-bar:nth-child(8){animation-delay:0.1s}.wave-bar:nth-child(9){animation-delay:0s}
+.wave-bar:nth-child(10){animation-delay:0.15s}.wave-bar:nth-child(11){animation-delay:0.25s}.wave-bar:nth-child(12){animation-delay:0.35s}
+
+.cta-bar { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+
+.btn-primary {
+  background: #C9A84C; color: #0A0A0A; border: none;
+  padding: 16px 36px; font-family: 'Montserrat', sans-serif;
+  font-size: 10px; font-weight: 700; letter-spacing: 3px;
+  text-transform: uppercase; cursor: pointer; text-decoration: none; display: inline-block;
+  transition: all 0.3s;
+}
+.btn-primary:hover { background: #E8D5A3; }
+
+.btn-outline {
+  background: transparent; color: #C9A84C;
+  border: 1px solid rgba(201,168,76,0.5);
+  padding: 16px 36px; font-family: 'Montserrat', sans-serif;
+  font-size: 10px; font-weight: 700; letter-spacing: 3px;
+  text-transform: uppercase; cursor: pointer; text-decoration: none; display: inline-block;
+  transition: all 0.3s;
+}
+.btn-outline:hover { border-color: #C9A84C; background: rgba(201,168,76,0.05); }
+
+/* DIVIDER */
+.divider { width: 100%; height: 1px; background: linear-gradient(to right, transparent, rgba(201,168,76,0.3), transparent); }
+
+/* SECTIONS */
+section { padding: 100px 80px; max-width: 1400px; margin: 0 auto; }
+
+.section-tag {
+  font-size: 9px; font-weight: 700; letter-spacing: 5px;
+  color: #C9A84C; text-transform: uppercase; margin-bottom: 20px;
+  display: flex; align-items: center; gap: 12px;
+}
+.section-tag::before { content: ''; display: block; width: 24px; height: 1px; background: #C9A84C; }
+
+.section-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(36px, 5vw, 64px);
+  font-weight: 300; line-height: 1.1; margin-bottom: 20px; color: #F5F0E8;
+}
+.section-title em { color: #C9A84C; font-style: italic; }
+
+/* NOTICE */
+.notice-banner {
+  background: rgba(201,168,76,0.08);
+  border: 1px solid rgba(201,168,76,0.25);
+  border-left: 3px solid #C9A84C;
+  padding: 20px 32px; margin: 0 auto 60px;
+  max-width: 1240px; display: flex; align-items: center; gap: 20px;
+}
+.notice-text { font-size: 12px; color: #bbb; line-height: 1.7; }
+.notice-text strong { color: #C9A84C; }
+
+/* OVERVIEW */
+.overview-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: start; margin-top: 60px; }
+.overview-text p { font-size: 15px; line-height: 1.9; color: #c8c8c8; margin-bottom: 20px; }
+
+.tech-specs {
+  background: #1A1A1A; border: 1px solid rgba(201,168,76,0.15);
+  padding: 40px; position: relative;
+}
+.tech-specs::before {
+  content: 'TECHNICAL SPECIFICATIONS';
+  position: absolute; top: -8px; left: 30px;
+  background: #1A1A1A; padding: 0 10px;
+  font-size: 8px; letter-spacing: 4px; color: #C9A84C; font-weight: 700;
+}
+.spec-row { display: flex; justify-content: space-between; align-items: center; padding: 16px 0; border-bottom: 1px solid rgba(255,255,255,0.05); }
+.spec-row:last-child { border-bottom: none; }
+.spec-row-label { font-size: 13px; letter-spacing: 2px; color: #888; text-transform: uppercase; }
+.spec-row-value { font-size: 16px; color: #F5F0E8; font-weight: 500; text-align: right; }
+.spec-row-value.gold { color: #C9A84C; }
+
+/* ALBUMS */
+.albums-grid {
+  display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 2px; margin-top: 60px;
+}
+.album-card {
+  background: #1A1A1A; border: 1px solid rgba(201,168,76,0.08);
+  padding: 32px; transition: all 0.4s;
+}
+.album-card:hover { transform: translateY(-4px); border-color: rgba(201,168,76,0.3); }
+.album-num { font-family: 'Cormorant Garamond', serif; font-size: 56px; font-weight: 300; color: rgba(201,168,76,0.15); line-height: 1; margin-bottom: 16px; }
+.album-name { font-family: 'Cormorant Garamond', serif; font-size: 22px; font-weight: 600; color: #F5F0E8; margin-bottom: 8px; }
+.album-style { font-size: 11px; letter-spacing: 3px; color: #C9A84C; text-transform: uppercase; margin-bottom: 16px; }
+.album-desc { font-size: 14px; line-height: 1.8; color: #c8c8c8; }
+.album-tracks { margin-top: 16px; padding-top: 16px; border-top: 1px solid rgba(255,255,255,0.05); font-size: 11px; letter-spacing: 2px; color: rgba(201,168,76,0.7); text-transform: uppercase; }
+
+/* APPLICATIONS */
+.applications-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 2px; margin-top: 60px; }
+.app-card { background: #1A1A1A; padding: 40px 30px; border: 1px solid rgba(201,168,76,0.08); transition: all 0.3s; }
+.app-card:hover { border-color: rgba(201,168,76,0.25); }
+.app-icon { font-size: 32px; margin-bottom: 20px; display: block; }
+.app-title { font-family: 'Cormorant Garamond', serif; font-size: 20px; font-weight: 600; margin-bottom: 12px; color: #F5F0E8; }
+.app-desc { font-size: 12px; line-height: 1.7; color: #777; }
+
+/* PRICING */
+.pricing-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 2px; margin-top: 60px; }
+.pricing-card {
+  background: #1A1A1A; border: 1px solid rgba(201,168,76,0.12);
+  padding: 48px 36px; position: relative; transition: all 0.4s;
+  display: flex; flex-direction: column;
+}
+.pricing-card.featured { background: linear-gradient(160deg, rgba(201,168,76,0.1) 0%, #1A1A1A 100%); border-color: #C9A84C; }
+.pricing-card:hover { transform: translateY(-6px); box-shadow: 0 30px 80px rgba(0,0,0,0.6); }
+.pricing-badge {
+  position: absolute; top: -1px; left: 50%; transform: translateX(-50%);
+  background: #C9A84C; color: #0A0A0A; font-size: 8px; font-weight: 800;
+  letter-spacing: 3px; padding: 5px 16px; text-transform: uppercase;
+}
+.pricing-tier { font-size: 9px; font-weight: 700; letter-spacing: 4px; color: #C9A84C; text-transform: uppercase; margin-bottom: 24px; }
+.pricing-price { font-family: 'Cormorant Garamond', serif; font-size: 56px; font-weight: 300; color: #F5F0E8; line-height: 1; margin-bottom: 8px; }
+.pricing-desc { font-size: 12px; color: #666; margin-bottom: 32px; line-height: 1.6; }
+.pricing-features { list-style: none; flex: 1; margin-bottom: 36px; }
+.pricing-features li { font-size: 12px; color: #999; padding: 8px 0; border-bottom: 1px solid rgba(255,255,255,0.04); display: flex; align-items: center; gap: 10px; }
+.pricing-features li::before { content: '—'; color: #C9A84C; font-size: 10px; flex-shrink: 0; }
+
+/* HUB */
+.hub-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 2px; margin-top: 60px; }
+.hub-card { background: #1A1A1A; border: 1px solid rgba(201,168,76,0.1); padding: 36px; text-align: center; transition: all 0.3s; text-decoration: none; color: inherit; display: block; }
+.hub-card:hover { border-color: #C9A84C; transform: translateY(-3px); }
+.hub-icon { font-size: 28px; margin-bottom: 16px; display: block; }
+.hub-name { font-family: 'Cormorant Garamond', serif; font-size: 18px; color: #F5F0E8; margin-bottom: 8px; }
+.hub-desc { font-size: 10px; letter-spacing: 2px; color: #888; text-transform: uppercase; }
+
+/* CONTACT */
+.contact-section { background: #111111; text-align: center; }
+.contact-inner { max-width: 700px; margin: 0 auto; }
+.contact-email { font-family: 'Cormorant Garamond', serif; font-size: clamp(24px, 4vw, 42px); font-weight: 300; color: #C9A84C; margin: 40px 0; letter-spacing: 2px; text-decoration: none; display: block; }
+.contact-note { font-size: 11px; color: #555; letter-spacing: 2px; line-height: 1.8; }
+
+/* FOOTER */
+footer { background: #0A0A0A; padding: 40px 80px; border-top: 1px solid rgba(201,168,76,0.1); display: flex; justify-content: space-between; align-items: center; }
+.footer-brand { font-family: 'Cormorant Garamond', serif; font-size: 18px; font-weight: 300; color: #C9A84C; }
+.footer-copy { font-size: 10px; letter-spacing: 2px; color: #444; text-transform: uppercase; }
+.footer-note { font-size: 10px; color: #333; letter-spacing: 1px; }
+
+/* RESPONSIVE */
+@media (max-width: 900px) {
+  section { padding: 60px 40px; }
+  .applications-grid, .pricing-grid, .hub-grid { grid-template-columns: 1fr 1fr; }
+  .overview-grid { grid-template-columns: 1fr; }
+  footer { flex-direction: column; gap: 16px; text-align: center; padding: 30px 40px; }
+}
+@media (max-width: 600px) {
+  .applications-grid, .pricing-grid, .hub-grid { grid-template-columns: 1fr; }
+  section { padding: 60px 24px; }
+  footer { padding: 30px 24px; }
+  .spec-bar { gap: 20px; }
+}
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<header class="hero">
+  <div class="hero-tag">AI Training Dataset · Machine Learning · Neural Audio Synthesis</div>
+  <h1 class="hero-title">Solo <em>Clarinet</em><br>AI Corpus</h1>
+  <div class="hero-rule"></div>
+  <p class="hero-subtitle">Romualdo Barone &nbsp;·&nbsp; Solo Clarinetist &nbsp;·&nbsp; Japan</p>
+  <div class="spec-bar">
+    <div class="spec-item"><div class="spec-value">14</div><div class="spec-label">Albums</div></div>
+    <div class="spec-item"><div class="spec-value">114</div><div class="spec-label">WAV Files</div></div>
+    <div class="spec-item"><div class="spec-value">44.1k</div><div class="spec-label">Sample Rate</div></div>
+    <div class="spec-item"><div class="spec-value">100%</div><div class="spec-label">Master Rights</div></div>
+  </div>
+  <div class="waveform">
+    <div class="wave-bar"></div><div class="wave-bar"></div><div class="wave-bar"></div>
+    <div class="wave-bar"></div><div class="wave-bar"></div><div class="wave-bar"></div>
+    <div class="wave-bar"></div><div class="wave-bar"></div><div class="wave-bar"></div>
+    <div class="wave-bar"></div><div class="wave-bar"></div><div class="wave-bar"></div>
+  </div>
+  <div class="cta-bar">
+    <a href="https://ko-fi.com/ROMUALDOBARONECLARINET/shop" class="btn-primary" target="_blank">☕ &nbsp;Buy on Ko-fi</a>
+    <a href="#catalog" class="btn-outline">Explore Catalog</a>
+  </div>
+</header>
+
+<div class="divider"></div>
+
+<!-- NOTICE -->
+<div style="background:#111111; padding: 60px 80px 0;">
+  <div class="notice-banner">
+    <span style="font-size:20px; flex-shrink:0;">◈</span>
+    <div class="notice-text">
+      <strong>Exclusive AI Training Dataset License Only.</strong> This corpus is licensed <strong>exclusively for Machine Learning, AI Research, and Neural Audio Synthesis training purposes</strong>. It is not available for sync licensing, film scoring, public streaming, or traditional commercial distribution. Licenses are <strong>non-exclusive by default</strong>. An <strong>exclusive license</strong> (sole rights + market withdrawal) is available only as the $8,000 tier. All master rights are 100% owned by Romualdo Barone.
+    </div>
+  </div>
+</div>
+
+<!-- DATASET OVERVIEW -->
+<div style="background:#111111;">
+  <section>
+    <div class="section-tag">Dataset Overview</div>
+    <h2 class="section-title">Premium Monophonic<br><em>Audio Corpus</em></h2>
+    <div class="overview-grid">
+      <div class="overview-text">
+        <p>A high-fidelity, monophonic audio collection specifically engineered for Machine Learning and Musical AI Research. This dataset provides pure, isolated clarinet performances — removing the complexity of accompaniment to allow for precise feature extraction and model training.</p>
+        <p>Each recording captures the full expressive range of the solo clarinet: vibrato control, dynamic articulation, legato phrasing, and the subtle timbral transitions unique to the instrument. This is <strong style="color:#C9A84C">not a sample library</strong> — it is a structured acoustic corpus for generative AI development.</p>
+        <p>The repertoire spans five centuries of public domain classical music — Baroque to Romantic — providing extraordinary stylistic variety within a single timbral context.</p>
+      </div>
+      <div class="tech-specs">
+        <div class="spec-row"><span class="spec-row-label">Instrument</span><span class="spec-row-value gold">Solo Clarinet</span></div>
+        <div class="spec-row"><span class="spec-row-label">Total Files</span><span class="spec-row-value gold">114 WAV Files</span></div>
+        <div class="spec-row"><span class="spec-row-label">Audio Format</span><span class="spec-row-value">44.1 kHz / 16-bit</span></div>
+        <div class="spec-row"><span class="spec-row-label">Recording Quality</span><span class="spec-row-value">Studio Clean · Isolated</span></div>
+        <div class="spec-row"><span class="spec-row-label">Structure</span><span class="spec-row-value">Monophonic · Expressive</span></div>
+        <div class="spec-row"><span class="spec-row-label">Repertoire</span><span class="spec-row-value">Public Domain Classical</span></div>
+        <div class="spec-row"><span class="spec-row-label">Master Rights</span><span class="spec-row-value gold">100% Romualdo Barone</span></div>
+        <div class="spec-row"><span class="spec-row-label">Albums</span><span class="spec-row-value">14 Complete Albums</span></div>
+        <div class="spec-row"><span class="spec-row-label">Delivery</span><span class="spec-row-value">Immediate · Secure Cloud</span></div>
+        <div class="spec-row"><span class="spec-row-label">Exclusive Option</span><span class="spec-row-value gold">Available · $8,000</span></div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<div class="divider"></div>
+
+<!-- ALBUMS -->
+<div style="background:#111111;" id="catalog">
+  <section>
+    <div class="section-tag">Complete Corpus</div>
+    <h2 class="section-title">14-Album <em>Catalog</em></h2>
+    <p style="color:#777; font-size:13px; margin-top:10px; max-width:600px;">Each album represents a distinct stylistic and timbral context — giving AI models diverse expressive data within a consistent acoustic signature.</p>
+    <div class="albums-grid">
+      <div class="album-card"><div class="album-num">01</div><div class="album-name">Palcoscenico</div><div class="album-style">Operatic Transcriptions</div><div class="album-desc">Celebrated operatic works by Donizetti, Weber and others — arranged for solo clarinet by A. Cardoni. Theatrical dynamics, lyrical phrasing, and dramatic gestural data.</div><div class="album-tracks">Operatic · Dramatic · Lyrical</div></div>
+      <div class="album-card"><div class="album-num">02</div><div class="album-name">Theatrical Clarinet</div><div class="album-style">Opera Highlights</div><div class="album-desc">Famous opera themes from Bellini, Rossini, Verdi, Donizetti, Boito and Puccini. Wide dynamic excursion and dramatic timbral contrasts — ideal for gesture modeling.</div><div class="album-tracks">Opera · High Dynamic Range</div></div>
+      <div class="album-card"><div class="album-num">03</div><div class="album-name">Moving Picture Music</div><div class="album-style">Cinematic · Multi-Style</div><div class="album-desc">A multi-genre cinematic collection — from Indian Love Song to Spanish dances to Parisian elegance. Extraordinary stylistic diversity in a single corpus.</div><div class="album-tracks">9 Tracks · Multi-Ethnic · Cinematic</div></div>
+      <div class="album-card"><div class="album-num">04</div><div class="album-name">Magical &amp; Timeless</div><div class="album-style">Mozart · Transcribed</div><div class="album-desc">From Die Zauberflöte — Mozart's melodic language distilled to pure solo clarinet. Nine movements of bright, lyrical phrasing and playful articulation patterns.</div><div class="album-tracks">9 Tracks · Classical Period</div></div>
+      <div class="album-card"><div class="album-num">05</div><div class="album-name">Creativity</div><div class="album-style">Sonatina · Fantasy · Renaissance</div><div class="album-desc">Diabelli sonatinas, a Brepsant Fantasy, and Renaissance dances — varied phrasing from flowing ideas to dream fragments to rhythmic sparks.</div><div class="album-tracks">6 Tracks · Multi-Era</div></div>
+      <div class="album-card"><div class="album-num">06</div><div class="album-name">Evocations</div><div class="album-style">Impressionistic · Character Pieces</div><div class="album-desc">Musical impressions — Invocation, The Hindoo, Première Tendresses, Fate — long-tone stability and spectral purity for resonance modeling.</div><div class="album-tracks">8 Tracks · Meditative · Coloristic</div></div>
+      <div class="album-card"><div class="album-num">07</div><div class="album-name">Ancient Dances</div><div class="album-style">Renaissance · Baroque Precision</div><div class="album-desc">Simone Molinaro's Balletto and an anonymous Villanella — precise rhythmic data and modal structures from the Renaissance tradition.</div><div class="album-tracks">2 Tracks · Early Music · Precise</div></div>
+      <div class="album-card"><div class="album-num">08</div><div class="album-name">Emotions</div><div class="album-style">J. Kuffner · Classical</div><div class="album-desc">Five expressive works tracing a full arc: Reflective, Tender, Energetic, Melancholic, Serene. Rich vibrato and micro-expressive pitch shifts captured in full.</div><div class="album-tracks">5 Tracks · Emotional Spectrum</div></div>
+      <div class="album-card"><div class="album-num">09</div><div class="album-name">Moments of Inspiration</div><div class="album-style">Airs Favoris · Kuffner</div><div class="album-desc">Whispering Dawn, Silent Echoes, Dancing Shadows, Eternal Glow — varied melodic textures and creative phrasing from luminous to abstract.</div><div class="album-tracks">7 Tracks · Lyrical · Narrative</div></div>
+      <div class="album-card"><div class="album-num">10</div><div class="album-name">Tangos</div><div class="album-style">Argentine · Brazilian · European</div><div class="album-desc">High-contrast dynamics and staccato transitions across Argentine Criollo, Brazilian Tango, and European salon styles. Essential for articulation modeling.</div><div class="album-tracks">6 Tracks · Sharp Articulation</div></div>
+      <div class="album-card"><div class="album-num">11</div><div class="album-name">Romance</div><div class="album-style">Bellini · Lyrical Opera</div><div class="album-desc">From Bellini's I Capuleti e i Montecchi — fluid legato and micro-expressive phrasing. The definitive dataset for romantic phrasing and melodic line modeling.</div><div class="album-tracks">7 Tracks · Legato · Romantic</div></div>
+      <div class="album-card"><div class="album-num">12</div><div class="album-name">Dances</div><div class="album-style">Renaissance to Flamenco</div><div class="album-desc">Five centuries of dance — from stately Renaissance Balletti to fiery Spanish Fandangos. Rhythmic precision data across radically contrasting dance styles.</div><div class="album-tracks">7 Tracks · Rhythmic · Multi-Era</div></div>
+      <div class="album-card"><div class="album-num">13</div><div class="album-name">Canzonetta</div><div class="album-style">Song-Form · Piano Transcriptions</div><div class="album-desc">Ten short song-like pieces — from Lyrical Flowing to Spanish Vibrant to quiet Nostalgia. Each a self-contained world of pure melody and candid expression.</div><div class="album-tracks">10 Tracks · Song-Form · Intimate</div></div>
+      <div class="album-card"><div class="album-num">14</div><div class="album-name">Serenata</div><div class="album-style">Nocturnal · Romantic</div><div class="album-desc">Eight serenades — from Strauss's Italian reverie to Andalusian moonlight to Don Juan's dramatic appeal. Soft attack and gentle decay modeling at its finest.</div><div class="album-tracks">8 Tracks · Nocturnal · Cinematic</div></div>
+    </div>
+  </section>
+</div>
+
+<div class="divider"></div>
+
+<!-- AI APPLICATIONS -->
+<section>
+  <div class="section-tag">Research Applications</div>
+  <h2 class="section-title">Designed for<br><em>Frontier AI</em></h2>
+  <div class="applications-grid">
+    <div class="app-card"><span class="app-icon">◈</span><div class="app-title">Instrument Modeling</div><div class="app-desc">High-accuracy clarinet timbre synthesis. The pure monophonic signal provides ideal ground truth for neural instrument modeling and physical modeling research.</div></div>
+    <div class="app-card"><span class="app-icon">◈</span><div class="app-title">Expressive Performance Generation</div><div class="app-desc">Training generative models on human-like phrasing, vibrato control, articulation, and dynamic shaping. Capture what makes performance alive — not just correct.</div></div>
+    <div class="app-card"><span class="app-icon">◈</span><div class="app-title">Audio Source Separation</div><div class="app-desc">Clean monophonic recordings provide ideal "ground truth" reference signals for training source separation and instrument isolation algorithms.</div></div>
+    <div class="app-card"><span class="app-icon">◈</span><div class="app-title">MIDI-to-Audio Synthesis</div><div class="app-desc">Bridging the gap between symbolic and acoustic music. This corpus trains models to produce expressive, human-quality audio from MIDI representations.</div></div>
+    <div class="app-card"><span class="app-icon">◈</span><div class="app-title">Diffusion Model Training</div><div class="app-desc">Consistent acoustic texture across 114 files provides the stable spectral signature diffusion models need to learn high-quality instrument generation.</div></div>
+    <div class="app-card"><span class="app-icon">◈</span><div class="app-title">GAN Audio Research</div><div class="app-desc">Diverse stylistic range — from Baroque precision to Romantic legato — within a single instrument enables robust GAN discriminator training across musical contexts.</div></div>
+    <div class="app-card"><span class="app-icon">◈</span><div class="app-title">Style Transfer</div><div class="app-desc">Fourteen albums covering radically different articulation styles — staccato tangos, fluid romances, dramatic opera — ideal for musical style transfer research.</div></div>
+    <div class="app-card"><span class="app-icon">◈</span><div class="app-title">Pitch &amp; Feature Extraction</div><div class="app-desc">Monophonic recordings eliminate polyphonic ambiguity — providing clean F0 tracking, spectral envelope extraction, and onset detection ground truth.</div></div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- PRICING -->
+<div style="background: linear-gradient(180deg, #0A0A0A 0%, #111111 100%);">
+  <section>
+    <div class="section-tag">Acquisition</div>
+    <h2 class="section-title">Licensing &amp; <em>Pricing</em></h2>
+    <p style="color:#666; font-size:12px; margin-top:8px; letter-spacing:1px;">AI TRAINING DATASET ONLY · NO SYNC · NO FILM · NO STREAMING</p>
+
+    <div style="display:grid; grid-template-columns:1fr 1fr; gap:2px; margin-top:40px; margin-bottom:2px;">
+      <div style="background:#1A1A1A; border:1px solid rgba(201,168,76,0.15); padding:28px 32px;">
+        <div style="font-size:9px; font-weight:700; letter-spacing:4px; color:#C9A84C; text-transform:uppercase; margin-bottom:12px;">◇ Non-Exclusive License</div>
+        <p style="font-size:12px; color:#aaa; line-height:1.8;">The licensor retains full ownership and may license the same dataset to multiple clients simultaneously. The dataset remains available on the market to other buyers.</p>
+      </div>
+      <div style="background:rgba(201,168,76,0.06); border:1px solid rgba(201,168,76,0.3); padding:28px 32px;">
+        <div style="font-size:9px; font-weight:700; letter-spacing:4px; color:#C9A84C; text-transform:uppercase; margin-bottom:12px;">◆ Exclusive License</div>
+        <p style="font-size:12px; color:#aaa; line-height:1.8;">The licensor transfers sole usage rights to a single licensee. Upon purchase, the dataset is permanently withdrawn from the market — no other individual or company may acquire or use it.</p>
+      </div>
+    </div>
+
+    <div class="pricing-grid" style="margin-top:0;">
+      <div class="pricing-card" style="border-top:3px solid rgba(201,168,76,0.25);">
+        <div style="font-size:8px; letter-spacing:3px; color:#555; text-transform:uppercase; margin-bottom:8px;">◇ Non-Exclusive</div>
+        <div class="pricing-tier">Entry</div>
+        <div class="pricing-price">$500</div>
+        <div class="pricing-desc">Single Album · 7 Tracks<br>One Style Focus</div>
+        <ul class="pricing-features">
+          <li>Choose 1 album from catalog</li>
+          <li>High-res WAV files (44.1kHz / 16-bit)</li>
+          <li>Non-exclusive AI Training License</li>
+          <li>Dataset remains on open market</li>
+          <li>Immediate cloud delivery</li>
+        </ul>
+        <a href="https://ko-fi.com/ROMUALDOBARONECLARINET/shop" class="btn-outline" style="text-align:center;" target="_blank">Buy on Ko-fi</a>
+      </div>
+      <div class="pricing-card" style="border-top:3px solid rgba(201,168,76,0.25);">
+        <div style="font-size:8px; letter-spacing:3px; color:#555; text-transform:uppercase; margin-bottom:8px;">◇ Non-Exclusive</div>
+        <div class="pricing-tier">Standard</div>
+        <div class="pricing-price">$1,500</div>
+        <div class="pricing-desc">5 Albums Selection<br>35 Tracks · Multi-Style</div>
+        <ul class="pricing-features">
+          <li>Choose 5 albums from catalog</li>
+          <li>High-res WAV files (44.1kHz / 16-bit)</li>
+          <li>Non-exclusive AI Training License</li>
+          <li>Dataset remains on open market</li>
+          <li>Immediate cloud delivery</li>
+          <li>Technical documentation</li>
+        </ul>
+        <a href="https://ko-fi.com/ROMUALDOBARONECLARINET/shop" class="btn-outline" style="text-align:center;" target="_blank">Buy on Ko-fi</a>
+      </div>
+      <div class="pricing-card featured" style="border-top:3px solid #C9A84C;">
+        <div class="pricing-badge">Most Requested</div>
+        <div style="font-size:8px; letter-spacing:3px; color:rgba(201,168,76,0.6); text-transform:uppercase; margin-bottom:8px; margin-top:8px;">◇ Non-Exclusive</div>
+        <div class="pricing-tier">Complete</div>
+        <div class="pricing-price">$3,500</div>
+        <div class="pricing-desc">Full 14-Album Corpus<br>114 Tracks · Maximum Dataset</div>
+        <ul class="pricing-features">
+          <li>All 14 albums — complete catalog</li>
+          <li>114 high-res WAV files</li>
+          <li>Non-exclusive AI Training License</li>
+          <li>Dataset remains on open market</li>
+          <li>Immediate cloud delivery</li>
+          <li>Technical documentation included</li>
+          <li>Multi-project use rights</li>
+        </ul>
+        <a href="https://ko-fi.com/ROMUALDOBARONECLARINET/shop" class="btn-primary" style="text-align:center;" target="_blank">Buy on Ko-fi</a>
+      </div>
+      <div class="pricing-card" style="border-top:3px solid #C9A84C; background:linear-gradient(160deg, rgba(201,168,76,0.07) 0%, #1A1A1A 100%);">
+        <div style="font-size:8px; letter-spacing:3px; color:#C9A84C; text-transform:uppercase; margin-bottom:8px;">◆ Exclusive License Only</div>
+        <div class="pricing-tier">Exclusive</div>
+        <div class="pricing-price">$8,000</div>
+        <div class="pricing-desc">Full Corpus + Market Withdrawal<br>Sole Ownership · One Buyer Only</div>
+        <ul class="pricing-features">
+          <li>Complete dataset — all 114 files</li>
+          <li>Dataset permanently withdrawn from market</li>
+          <li>No other client may acquire or use it</li>
+          <li>Sole exclusive AI training rights</li>
+          <li>Unique competitive advantage</li>
+          <li>Custom enterprise agreement</li>
+          <li>Priority support &amp; future recordings</li>
+        </ul>
+        <a href="mailto:filmusic15@gmail.com?subject=Exclusive License Inquiry - AI Dataset" class="btn-outline" style="text-align:center; border-color:#C9A84C;">Contact by Email</a>
+      </div>
+    </div>
+
+    <div style="margin-top:32px; padding:28px 32px; border:1px solid rgba(201,168,76,0.2); background:#1A1A1A; text-align:center;">
+      <div style="display:flex; justify-content:center; align-items:center; gap:40px; flex-wrap:wrap;">
+        <div>
+          <div style="font-size:8px; letter-spacing:3px; color:#C9A84C; text-transform:uppercase; margin-bottom:8px;">Payment via</div>
+          <div style="font-size:15px; font-weight:600; color:#F5F0E8; letter-spacing:1px;">PayPal</div>
+          <div style="font-size:10px; color:#555; margin-top:4px;">via Ko-fi checkout</div>
+        </div>
+        <div style="width:1px; height:40px; background:rgba(201,168,76,0.2);"></div>
+        <div>
+          <div style="font-size:8px; letter-spacing:3px; color:#C9A84C; text-transform:uppercase; margin-bottom:8px;">Shop</div>
+          <a href="https://ko-fi.com/ROMUALDOBARONECLARINET/shop" target="_blank" style="font-size:15px; font-weight:600; color:#F5F0E8; letter-spacing:1px; text-decoration:none;">ko-fi.com/ROMUALDOBARONECLARINET</a>
+          <div style="font-size:10px; color:#555; margin-top:4px;">Immediate delivery · Secure</div>
+        </div>
+        <div style="width:1px; height:40px; background:rgba(201,168,76,0.2);"></div>
+        <div>
+          <div style="font-size:8px; letter-spacing:3px; color:#C9A84C; text-transform:uppercase; margin-bottom:8px;">Exclusive Inquiries</div>
+          <a href="mailto:filmusic15@gmail.com" style="font-size:15px; font-weight:600; color:#F5F0E8; letter-spacing:1px; text-decoration:none;">filmusic15@gmail.com</a>
+          <div style="font-size:10px; color:#555; margin-top:4px;">$8,000 Exclusive tier only</div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<div class="divider"></div>
+
+<!-- HUB -->
+<div style="background:#111111;">
+  <section>
+    <div class="section-tag">Documentation &amp; Resources</div>
+    <h2 class="section-title">Technical <em>Hub</em></h2>
+    <div class="hub-grid">
+      <a href="https://huggingface.co/datasets/clarinet-ai-datasets/solo-clarinet-classical-recordings" class="hub-card" target="_blank"><span class="hub-icon">🤗</span><div class="hub-name">Hugging Face</div><div class="hub-desc">Dataset Repository</div></a>
+      <a href="https://github.com/NFTsoloclarinet" class="hub-card" target="_blank"><span class="hub-icon">⌨</span><div class="hub-name">GitHub</div><div class="hub-desc">Technical Documentation</div></a>
+      <a href="https://youtube.com/@romualdobaroneclarinet" class="hub-card" target="_blank"><span class="hub-icon">▶</span><div class="hub-name">YouTube</div><div class="hub-desc">Audio Sample Previews</div></a>
+      <a href="https://ko-fi.com/ROMUALDOBARONECLARINET/shop" class="hub-card" target="_blank"><span class="hub-icon">☕</span><div class="hub-name">Ko-fi Shop</div><div class="hub-desc">Purchase · PayPal via Ko-fi</div></a>
+    </div>
+  </section>
+</div>
+
+<div class="divider"></div>
+
+<!-- CONTACT -->
+<div class="contact-section">
+  <section>
+    <div class="contact-inner">
+      <div class="section-tag" style="justify-content:center;">Acquire the Dataset</div>
+      <h2 class="section-title" style="text-align:center;">Ready to <em>Purchase?</em></h2>
+      <p style="color:#666; font-size:13px; line-height:1.8; margin:30px 0; text-align:center;">
+        All non-exclusive licenses are purchased directly via Ko-fi — payment processed securely through PayPal.<br>
+        For the exclusive $8,000 license, contact by email to arrange a custom agreement.
+      </p>
+      <div style="text-align:center; margin:40px 0;">
+        <a href="https://ko-fi.com/ROMUALDOBARONECLARINET/shop" target="_blank" class="btn-primary" style="font-size:12px; letter-spacing:4px; padding:20px 56px;">
+          ☕ &nbsp; Visit Ko-fi Shop
+        </a>
+        <div style="font-size:10px; color:#444; letter-spacing:2px; margin-top:16px; text-transform:uppercase;">ko-fi.com/ROMUALDOBARONECLARINET/shop · Payment via PayPal</div>
+      </div>
+      <div style="width:100%; height:1px; background:linear-gradient(to right, transparent, rgba(201,168,76,0.2), transparent); margin:40px 0;"></div>
+      <div style="text-align:center;">
+        <div style="font-size:9px; letter-spacing:4px; color:#C9A84C; text-transform:uppercase; margin-bottom:16px;">◆ Exclusive License Inquiries Only</div>
+        <a href="mailto:filmusic15@gmail.com?subject=Exclusive License Inquiry - AI Dataset" class="contact-email">filmusic15@gmail.com</a>
+        <div class="contact-note">
+          ROMUALDO BARONE · SOLO CLARINETIST &amp; AI DATA PROVIDER · JAPAN<br><br>
+          Responds within 24 hours · Enterprise terms available · Custom corpus development on request
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-brand">Romualdo Barone</div>
+  <div class="footer-copy">© 2025 · All Master Rights Reserved</div>
+  <div class="footer-note">AI Training Dataset · Exclusive License Only</div>
+</footer>
+
+</body>
+</html>
